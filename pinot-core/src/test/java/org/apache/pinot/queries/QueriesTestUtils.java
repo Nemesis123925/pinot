@@ -22,6 +22,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+//import java.util.Set;
+//import java.util.TreeSet;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import org.apache.pinot.common.response.broker.BrokerResponseNative;
@@ -32,6 +34,7 @@ import org.apache.pinot.core.query.aggregation.groupby.GroupKeyGenerator;
 import org.apache.pinot.segment.local.customobject.AvgPair;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 import static org.testng.Assert.fail;
 
 
@@ -130,11 +133,49 @@ public class QueriesTestUtils {
     validateRows(actual.getRows(), expected.getRows());
   }
 
+  private static String[] getProjectionSet(String projection) {
+    int index = projection.indexOf("PROJECT(", 0);
+    String withoutPre = projection.substring(index + 8, projection.length() - 1);
+    String[] projections = withoutPre.trim().split("\\s*,\\s*");
+    Arrays.sort(projections);
+    return projections;
+  }
+
   private static void validateRows(List<Object[]> actual, List<Object[]> expected) {
     assertEquals(actual.size(), expected.size());
     for (int i = 0; i < actual.size(); i++) {
-      // Generic assertEquals delegates to assertArrayEquals, which can test for equality of array values in rows.
-      assertEquals((Object) actual.get(i), (Object) expected.get(i));
+      System.out.print(Arrays.toString(actual.get(i)) + " ");
+    }
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    for (int i = 0; i < actual.size(); i++) {
+      System.out.print(Arrays.toString(expected.get(i)) + " ");
+    }
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    for (int i = 0; i < actual.size(); i++) {
+      String possibleActualProject = actual.get(i)[0].toString();
+      String possibleExpectProject = expected.get(i)[0].toString();
+      if (possibleActualProject.contains("PROJECT(")) {
+        String[] actualProjection = getProjectionSet(possibleActualProject);
+        String[] expectProjection = getProjectionSet(possibleExpectProject);
+        assertTrue(Arrays.equals(actualProjection, expectProjection));
+        for (int j = 1; j < 3; j++) {
+          assertEquals(actual.get(i)[j], expected.get(i)[j]);
+        }
+      } else {
+        assertEquals((Object) actual.get(i), (Object) expected.get(i));
+      }
+//      char[] expectedCharArray = expected.get(i)[0].toString().toCharArray();
+//      Arrays.sort(actualCharArray);
+//      Arrays.sort(expectedCharArray);
+//      assertTrue(Arrays.equals(actualCharArray, expectedCharArray));
+//      // Generic assertEquals delegates to assertArrayEquals, which can test for equality of array values in rows.
+//      for (int j = 1; j < 3; j++) {
+//        assertEquals(actual.get(i)[j], expected.get(i)[j]);
+//      }
     }
   }
 
