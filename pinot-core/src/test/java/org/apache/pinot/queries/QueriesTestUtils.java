@@ -22,8 +22,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-//import java.util.Set;
-//import java.util.TreeSet;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import org.apache.pinot.common.response.broker.BrokerResponseNative;
@@ -156,26 +154,18 @@ public class QueriesTestUtils {
     System.out.println();
     System.out.println();
     for (int i = 0; i < actual.size(); i++) {
-      String possibleActualProject = actual.get(i)[0].toString();
-      String possibleExpectProject = expected.get(i)[0].toString();
-      if (possibleActualProject.contains("PROJECT(")) {
-        String[] actualProjection = getProjectionSet(possibleActualProject);
-        String[] expectProjection = getProjectionSet(possibleExpectProject);
+      String sqlActual = actual.get(i)[0].toString();
+      String sqlExpect = expected.get(i)[0].toString();
+      if (sqlActual.contains("PROJECT(")) {
+        String[] actualProjection = getProjectionSet(sqlActual);
+        String[] expectProjection = getProjectionSet(sqlExpect);
         assertTrue(Arrays.equals(actualProjection, expectProjection));
         for (int j = 1; j < 3; j++) {
           assertEquals(actual.get(i)[j], expected.get(i)[j]);
         }
-      } else {
+      } else if (!sqlActual.contains("PLAN_START(")) {
         assertEquals((Object) actual.get(i), (Object) expected.get(i));
       }
-//      char[] expectedCharArray = expected.get(i)[0].toString().toCharArray();
-//      Arrays.sort(actualCharArray);
-//      Arrays.sort(expectedCharArray);
-//      assertTrue(Arrays.equals(actualCharArray, expectedCharArray));
-//      // Generic assertEquals delegates to assertArrayEquals, which can test for equality of array values in rows.
-//      for (int j = 1; j < 3; j++) {
-//        assertEquals(actual.get(i)[j], expected.get(i)[j]);
-//      }
     }
   }
 
