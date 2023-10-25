@@ -32,7 +32,6 @@ import org.apache.pinot.core.query.aggregation.groupby.GroupKeyGenerator;
 import org.apache.pinot.segment.local.customobject.AvgPair;
 
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
 import static org.testng.Assert.fail;
 
 
@@ -142,30 +141,8 @@ public class QueriesTestUtils {
   private static void validateRows(List<Object[]> actual, List<Object[]> expected) {
     assertEquals(actual.size(), expected.size());
     for (int i = 0; i < actual.size(); i++) {
-      System.out.print(Arrays.toString(actual.get(i)) + " ");
-    }
-    System.out.println();
-    System.out.println();
-    System.out.println();
-    for (int i = 0; i < actual.size(); i++) {
-      System.out.print(Arrays.toString(expected.get(i)) + " ");
-    }
-    System.out.println();
-    System.out.println();
-    System.out.println();
-    for (int i = 0; i < actual.size(); i++) {
-      String sqlActual = actual.get(i)[0].toString();
-      String sqlExpect = expected.get(i)[0].toString();
-      if (sqlActual.contains("PROJECT(")) {
-        String[] actualProjection = getProjectionSet(sqlActual);
-        String[] expectProjection = getProjectionSet(sqlExpect);
-        assertTrue(Arrays.equals(actualProjection, expectProjection));
-        for (int j = 1; j < 3; j++) {
-          assertEquals(actual.get(i)[j], expected.get(i)[j]);
-        }
-      } else if (!sqlActual.contains("PLAN_START(")) {
-        assertEquals((Object) actual.get(i), (Object) expected.get(i));
-      }
+      // Generic assertEquals delegates to assertArrayEquals, which can test for equality of array values in rows.
+      assertEquals((Object) actual.get(i), (Object) expected.get(i));
     }
   }
 
