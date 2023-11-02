@@ -130,14 +130,6 @@ public class QueriesTestUtils {
     validateRows(actual.getRows(), expected.getRows());
   }
 
-  private static String[] getProjectionSet(String projection) {
-    int index = projection.indexOf("PROJECT(", 0);
-    String withoutPre = projection.substring(index + 8, projection.length() - 1);
-    String[] projections = withoutPre.trim().split("\\s*,\\s*");
-    Arrays.sort(projections);
-    return projections;
-  }
-
   private static void validateRows(List<Object[]> actual, List<Object[]> expected) {
     assertEquals(actual.size(), expected.size());
     for (int i = 0; i < actual.size(); i++) {

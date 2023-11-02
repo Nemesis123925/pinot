@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.io.FileUtils;
 import org.apache.helix.HelixManager;
@@ -166,9 +167,9 @@ public class ExplainPlanQueriesTest extends BaseQueriesTest {
   }
 
   GenericRow createMockRecord(int noIndexCol1, int noIndexCol2, int noIndexCol3, boolean noIndexCol4,
-      double invertedIndexCol1, int invertedIndexCol2, String invertedIndexCol3, double rangeIndexCol1,
-      int rangeIndexCol2, int rangeIndexCol3, double sortedIndexCol1, String jsonIndexCol1, String textIndexCol1,
-      int rawCol1, Object[] mvRawCol1, Object[] mvNoIndexCol1) {
+                              double invertedIndexCol1, int invertedIndexCol2, String invertedIndexCol3, double rangeIndexCol1,
+                              int rangeIndexCol2, int rangeIndexCol3, double sortedIndexCol1, String jsonIndexCol1, String textIndexCol1,
+                              int rawCol1, Object[] mvRawCol1, Object[] mvNoIndexCol1) {
 
     GenericRow record = new GenericRow();
     record.putValue(COL1_RAW, rawCol1);
@@ -1059,10 +1060,10 @@ public class ExplainPlanQueriesTest extends BaseQueriesTest {
     result1.add(new Object[]{"DOC_ID_SET", 5, 4});
     result1.add(new Object[]{"FILTER_AND", 6, 5});
     result1.add(new Object[]{
-            "FILTER_SORTED_INDEX(indexLookUp:sorted_index,operator:EQ,predicate:sortedIndexCol1 = '100.1')", 7, 6
+        "FILTER_SORTED_INDEX(indexLookUp:sorted_index,operator:EQ,predicate:sortedIndexCol1 = '100.1')", 7, 6
     });
     result1.add(new Object[]{
-            "FILTER_INVERTED_INDEX(indexLookUp:inverted_index,operator:EQ,predicate:invertedIndexCol1 = '1.1')", 8, 6
+        "FILTER_INVERTED_INDEX(indexLookUp:inverted_index,operator:EQ,predicate:invertedIndexCol1 = '1.1')", 8, 6
     });
     result1.add(new Object[]{
         "PLAN_START(numSegmentsForThisPlan:1)", ExplainPlanRows.PLAN_START_IDS, ExplainPlanRows.PLAN_START_IDS
@@ -1473,14 +1474,14 @@ public class ExplainPlanQueriesTest extends BaseQueriesTest {
     result1.add(new Object[]{"BROKER_REDUCE(limit:100)", 1, 0});
     result1.add(new Object[]{"COMBINE_SELECT", 2, 1});
     result1.add(new Object[]{
-            "PLAN_START(numSegmentsForThisPlan:1)", ExplainPlanRows.PLAN_START_IDS, ExplainPlanRows.PLAN_START_IDS
+        "PLAN_START(numSegmentsForThisPlan:1)", ExplainPlanRows.PLAN_START_IDS, ExplainPlanRows.PLAN_START_IDS
     });
     result1.add(new Object[]{"SELECT(selectList:noIndexCol1, invertedIndexCol1, invertedIndexCol3)", 3, 2});
     result1.add(new Object[]{PROJEC_TNII_3, 4, 3});
     result1.add(new Object[]{"DOC_ID_SET", 5, 4});
     result1.add(new Object[]{"FILTER_MATCH_ENTIRE_SEGMENT(docs:3)", 6, 5});
     result1.add(new Object[]{
-            "PLAN_START(numSegmentsForThisPlan:2)", ExplainPlanRows.PLAN_START_IDS, ExplainPlanRows.PLAN_START_IDS
+        "PLAN_START(numSegmentsForThisPlan:2)", ExplainPlanRows.PLAN_START_IDS, ExplainPlanRows.PLAN_START_IDS
     });
     result1.add(new Object[]{"SELECT(selectList:noIndexCol1, invertedIndexCol1, invertedIndexCol3)", 3, 2});
     result1.add(new Object[]{PROJEC_TNII_3, 4, 3});
@@ -2236,13 +2237,13 @@ public class ExplainPlanQueriesTest extends BaseQueriesTest {
     result3.add(new Object[]{"PROJECT(noIndexCol1, noIndexCol2, noIndexCol3)", 4, 3});
     result3.add(new Object[]{"DOC_ID_SET", 5, 4});
     result3.add(new Object[]{
-            "FILTER_INVERTED_INDEX(indexLookUp:inverted_index,operator:EQ,predicate:invertedIndexCol1 = '1.1')", 6, 5
+        "FILTER_INVERTED_INDEX(indexLookUp:inverted_index,operator:EQ,predicate:invertedIndexCol1 = '1.1')", 6, 5
     });
     result3.add(new Object[]{
-            "PLAN_START(numSegmentsForThisPlan:1)", ExplainPlanRows.PLAN_START_IDS, ExplainPlanRows.PLAN_START_IDS
+        "PLAN_START(numSegmentsForThisPlan:1)", ExplainPlanRows.PLAN_START_IDS, ExplainPlanRows.PLAN_START_IDS
     });
     result3.add(
-            new Object[]{"AGGREGATE(aggregations:count(*), max(noIndexCol1), sum(noIndexCol2), avg(noIndexCol3))", 3, 2}
+        new Object[]{"AGGREGATE(aggregations:count(*), max(noIndexCol1), sum(noIndexCol2), avg(noIndexCol3))", 3, 2}
     );
     result3.add(new Object[]{"PROJECT(noIndexCol1, noIndexCol2, noIndexCol3)", 4, 3});
     result3.add(new Object[]{"DOC_ID_SET", 5, 4});
@@ -2292,7 +2293,7 @@ public class ExplainPlanQueriesTest extends BaseQueriesTest {
     result5.add(new Object[]{"BROKER_REDUCE(limit:100)", 1, 0});
     result5.add(new Object[]{"COMBINE_AGGREGATE", 2, 1});
     result5.add(new Object[]{
-            "PLAN_START(numSegmentsForThisPlan:3)", ExplainPlanRows.PLAN_START_IDS, ExplainPlanRows.PLAN_START_IDS
+        "PLAN_START(numSegmentsForThisPlan:3)", ExplainPlanRows.PLAN_START_IDS, ExplainPlanRows.PLAN_START_IDS
     });
     result5.add(new Object[]{"FAST_FILTERED_COUNT", 3, 2});
     result5.add(new Object[]{"FILTER_EMPTY", 4, 3});
@@ -2301,7 +2302,7 @@ public class ExplainPlanQueriesTest extends BaseQueriesTest {
     });
     result5.add(new Object[]{"FAST_FILTERED_COUNT", 3, 2});
     result5.add(new Object[]{
-            "FILTER_INVERTED_INDEX(indexLookUp:inverted_index,operator:EQ,predicate:invertedIndexCol1 = '1.5')", 4, 3
+        "FILTER_INVERTED_INDEX(indexLookUp:inverted_index,operator:EQ,predicate:invertedIndexCol1 = '1.5')", 4, 3
     });
     check(query5, new ResultTable(DATA_SCHEMA, result5));
 
